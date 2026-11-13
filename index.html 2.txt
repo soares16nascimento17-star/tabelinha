@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+  <html lang="pt-BR">
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Sorteio de Produtos</title>
+      <style>
+          * { box-sizing: border-box; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; }
+          body { margin: 0; padding: 20px; background: #f5f5f5; min-height: 100vh; }
+          .container { max-width: 1200px; margin: 0 auto; }
+          h1, h2 { color: #333; text-align: center; }
+          form { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px; }
+          .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+          .form-group { margin-bottom: 10px; }
+          .form-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #444; }
+          .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius:
+  5px; font-size: 14px; }
+          .btn-submit { background: #4CAF50; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor:
+  pointer; font-size: 16px; transition: background 0.3s; margin-right: 10px; }
+          .btn-submit:hover { background: #45a049; }
+          button.clear-btn { background: #f44336; color: white; border: none; padding: 12px 25px; border-radius: 5px;
+  cursor: pointer; margin-right: 10px; font-size: 16px; }
+          .btn-clear:hover { background: #d32f2f; }
+          .results-area { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+          table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+          th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+          th { background: #4CAF50; color: white; font-weight: bold; }
+          tr:hover { background: #f9f9f9; }
+          .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+          .product-count { background: #2196F3; color: white; padding: 8px 15px; border-radius: 4px; display:
+  inline-block; }
+          .winner-area { display: none; background: linear-gradient(135deg, #FF9800, #F57C00); padding: 20px;
+  border-radius: 8px; color: white; margin-top: 20px; text-align: center; }
+          .winner-item { font-size: 16px; margin: 5px 0; }
+      </style>
+  </head>
+  <body>
+      <div class="container">
+          <h1>🎉 Sistema de Sorteio de Produtos 🎉</h1>
+
+          <!-- Formulário de Inscrição -->
+          <form id="participantForm" style="display: block;">
+              <div class="form-grid">
+                  <div class="form-group">
+                      <label for="nome">Nome Completo *</label>
+                      <input type="text" id="nome" required placeholder="Digite seu nome completo">
+                  </div>
+                  <div class="form-group">
+                      <label for="email">Email *</label>
+                      <input type="email" id="email" required placeholder="seu@email.com">
+                  </div>
+                  <div class="form-group">
+                      <label for="telefone">Telefone *</label>
+                      <input type="tel" id="telefone" required placeholder="(XX) XXXXX-XXXX">
+                  </div>
+                  <div class="form-group">
+                      <label for="cpf">CPF *</label>
+                      <input type="text" id="cpf" required placeholder="000.000.000-00">
+                  </div>
+                  <div class="form-group">
+                      <label for="endereco">Endereço *</label>
+                      <input type="text" id="endereco" required placeholder="Rua, nº...">
+                  </div>
+              </div>
+              <button type="submit" class="btn-submit">➕ Inscrever Participante</button>
+          </form>
+
+          <!-- Lista de Particiantes -->
+          <div class="results-area">
+              <h2>📊 Lista de Inscritos</h2>
+              <p>Inscrições: <span id="participantCount" class="product-count">0</span></p>
+              <table>
+                  <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>Nome Completo</th>
+                          <th>Email</th>
+                          <th>Telefone</th>
+                          <th>CPF</th>
+                          <th>Endereço</th>
+                      </tr>
+                  </thead>
+                  <tbody id="participantsTable">
+                      <!-- Linhas de participantes serão inseridas aqui via JavaScript -->
+                  </tbody>
+              </table>
+
+              <!-- Área do Sorteio -->
+              <div class="actions">
+                  <button type="button" id="drawBtn" class="btn-submit" style="background:#FF9800">🎲 Realizar
+  Sorteio</button>
+                  <button type="button" id="clearDataBtn" class="clear-btn">🗑️ Limpar Dados</button>
+              </div>
+
+              <!-- Área do Vencedor -->
+              <div class="winner-area" id="winnerArea">
+                  <h2>🏆 🎉 PARABÉNS! 🎉 🏆</h2>
+                  <p>O(a) sorteador/a foi(a): <span id="winnerName"></span></p>
+                  <div class="winner-item"><strong>Email:</strong> <span id="winnerEmail"></span></div>
+                  <div class="winner-item"><strong>Telefone:</strong> <span id="winnerPhone"></span></div>
+                  <button type="button" class="btn-submit" id="newDrawBtn" style="margin-top: 15px;">🔄 Novo
+  Sorteio</button>
